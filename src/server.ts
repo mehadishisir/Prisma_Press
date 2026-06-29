@@ -1,6 +1,5 @@
 import process from "process";
 import app from "./app";
-import { Prisma } from "../generated/prisma/client";
 import { prisma } from "./lib/prisma";
 import config from "./config";
 const port = config.port
