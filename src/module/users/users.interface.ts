@@ -1,0 +1,7 @@
+export interface payload {
+  name: string;
+  email: string;
+  password: string;
+  profilePhoto?: string;
+  bio?: string;
+}
