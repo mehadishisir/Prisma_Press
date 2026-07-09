@@ -5,6 +5,9 @@ import bcrypt from "bcryptjs";
 import config from "../../config";
 import { userService } from "./users.service";
 import { catchAsync } from "../../utils/catchAsync";
+import { sendResponse } from "../../utils/sendResponse";
+
+
 
 
 // regusteruser
@@ -31,11 +34,17 @@ import { catchAsync } from "../../utils/catchAsync";
 const registerUser = catchAsync(async (req:Request,res:Response)=>{
     const payload = req.body;
     const user = await userService.registerUserIntoDB(payload) 
-     res.status(httpStatus.CREATED).json({
+  //    res.status(httpStatus.CREATED).json({
+  //   success: true,
+  //   message: "User registered successfully",
+  //   data: user,
+  // }); 
+  sendResponse(res,{
     success: true,
+    statusCode: httpStatus.CREATED,
     message: "User registered successfully",
     data: user,
-  }); 
+  })
 })
 export const userController ={
     registerUser
