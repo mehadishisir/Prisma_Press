@@ -6,6 +6,7 @@ import { prisma } from "./lib/prisma";
 import httpStatus from "http-status";
 import bcrypt from "bcryptjs";
 import { userRoutes } from "./module/users/users.router";
+import { authRouter } from "./module/auth/auth.router";
 
 const app:Application =  express();
 app.use(cors({
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 
 app.use("/api/users",userRoutes)
+app.use("/api/auth",authRouter)
 
 app.get("/", async (req: Request, res: Response) => {
   const user = await prisma.user.findMany();
