@@ -28,18 +28,8 @@ const registerUser = catchAsync(async (req:Request,res:Response)=>{
 })
 
 const getUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const { accesstoken } = req.cookies;
-  console.log(accesstoken);
-
-  const result = jwtUtils.verifyToken(accesstoken, config.jwt_access_token_secret);
-  console.log(result);
-
-  if (!result || result.success === false) {
-    throw new Error(result?.error || "Token verification failed");
-  }
-
-  const payload = result.data as { id: string };
-  const profile = await userService.getUserFromDB(payload.id);
+  
+  const profile = await userService.getUserFromDB(req.user?.id as string);
 
   sendResponse(res, {
     success: true,
