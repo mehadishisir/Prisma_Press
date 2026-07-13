@@ -63,6 +63,8 @@ router.get("/me",
 // }
 // next()
 // } 
-authMiddleware.auth(Role.ADMIN,Role.USER)
-,userController.getUser )
+authMiddleware.auth(Role.ADMIN,Role.USER) ,userController.getUser)
+
+router.put("/my-profile", authMiddleware.auth(Role.ADMIN,Role.USER), userController.updateUser)
+
  export const userRoutes = router
