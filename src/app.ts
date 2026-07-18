@@ -8,6 +8,7 @@ import bcrypt from "bcryptjs";
 import { userRoutes } from "./module/users/users.router";
 import { authRouter } from "./module/auth/auth.router";
 import { postRoutes } from "./module/posts/post.route";
+import { commentsRouter } from "./module/comments/comment.route";
 
 const app:Application =  express();
 app.use(cors({
@@ -23,7 +24,7 @@ app.use(cookieParser());
 app.use("/api/users",userRoutes)
 app.use("/api/auth",authRouter)
 app.use("/api/posts",postRoutes)
-app.use("/api/comments",commentsRoutes)
+app.use("/api/comments",commentsRouter)
 
 app.get("/", async (req: Request, res: Response) => {
   const user = await prisma.user.findMany();
