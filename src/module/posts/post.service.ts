@@ -30,12 +30,40 @@ const getAllPost = async()=>{
 
 const getPostById = async(postId:string)=>{
   
-    const result = await prisma.post.findUniqueOrThrow({
+//     const result = await prisma.post.findUniqueOrThrow({
+
+//         where:{
+//             id:postId
+//         }
+//     });
+    
+    
+    // const updatedPost = await prisma.post.update({
+    //     where:{
+    //         id:postId
+    //     },
+    //     data:{
+    //         views:{
+    //             increment:1
+    //         }
+    //     },
+    //     include:{
+    //         comments:true
+    //     }
+    // })
+    // return updatedPost
+ 
+    const transiction = await prisma.$transaction(async(tx)=>{
+        await tx.post.findUniqueOrThrow({
+
         where:{
             id:postId
         }
+
+    
     })
-    const updatedPost = await prisma.post.update({
+
+    const updatePost = await prisma.post.update({
         where:{
             id:postId
         },
@@ -48,7 +76,13 @@ const getPostById = async(postId:string)=>{
             comments:true
         }
     })
-    return updatedPost
+    return updatePost
+
+
+
+})
+return transiction
+
 }
 const getMyPost = async(authorId:string)=>{
     const result = await prisma.post.findMany({
