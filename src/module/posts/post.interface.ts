@@ -9,3 +9,11 @@ export interface ICreatePost {
     tags:string[]
 
 }
+export interface IupdatePost {
+       title?:string
+    content?:string
+    thumbnail?:string
+    isFeatured?:boolean
+    status?:PostStatus
+    tags?:string[]
+}
