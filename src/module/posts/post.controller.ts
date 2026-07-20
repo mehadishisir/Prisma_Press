@@ -58,7 +58,13 @@ const getPostById = catchAsync(async(req:Request,res:Response,next:NextFunction)
     })
 })
 const getPostStatus = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
-    
+    const result = await postService.getPostStatus()
+   sendResponse(res,{
+        success:true,
+        statusCode:httpStatus.OK,
+        message:"get all post status seccessfully",
+        data:result
+    })
 
 })
 const deletePost = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
