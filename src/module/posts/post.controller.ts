@@ -62,7 +62,22 @@ const getPostStatus = catchAsync(async(req:Request,res:Response,next:NextFunctio
 
 })
 const deletePost = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
-    
+     const authorId= req.user?.id
+   const isAdmin = req.user?.role ==="ADMIN"
+    const postId = req.params.postId
+
+    if(!postId){
+        throw new Error("post id is needed");
+        
+    }
+    const result = await postService.deletePost(postId as string,authorId as string,isAdmin)
+
+ sendResponse(res,{
+        success:true,
+        statusCode:httpStatus.OK,
+        message:"post deleteted seccessfully",
+        data:null
+    })
 
 })
 const updatePost = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{

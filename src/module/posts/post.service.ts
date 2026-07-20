@@ -101,10 +101,28 @@ if(post.authorId !== authorId){
  })
  return result
 }
+const deletePost = async(postId:string, authorId:string,isAdmin:boolean)=>{
+     const post = await prisma.post.findUniqueOrThrow({
+    where:{
+        id:postId
+    }
+   
+})
+if(post.authorId !== authorId && !isAdmin ){
+    throw new Error("you can not delete this post")
+}
+const result = await prisma.post.delete({
+    where:{
+        id:postId
+    }
+})
+return result
+}
 export const postService ={
     createPost,
     getAllPost,
     getPostById,
     getMyPost,
-    updatePost
+    updatePost,
+    deletePost
 }
